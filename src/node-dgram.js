@@ -245,6 +245,10 @@ export default (lib: Lib) => {
       }
     }
 
+    setMulticastTTL(ttl: number) {
+      // noop
+    }
+
     addMembership(multicastAddress: string, interfaceAddress?: string) {
       const socket = this._healthCheck()
 
@@ -327,8 +331,7 @@ export default (lib: Lib) => {
     async perform() {
       const { socket, address, port } = this
       try {
-        const record = await socket.dns.resolve(address)
-        const host = record.addresses[0]
+        const host = await browser.DNS.resolve(address, 0, false)
         const addressReuse = socket._reuseAddr
         const options =
           port != undefined && port !== 0
@@ -361,7 +364,7 @@ export default (lib: Lib) => {
     async perform() {
       const { socket, list, port, address, callback } = this
       const { _handle } = socket
-      const host = (await socket.dns.resolve(address)).addresses[0]
+      const host = await browser.DNS.resolve(address, 0, false)
 
       if (_handle) {
         try {
