@@ -1,6 +1,6 @@
 {
-  "version": "0.0.0",
-  "name": "@libdweb/node-dgram",
+  "version": "0.0.2",
+  "name": "@sammacbeth/node-dgram",
   "description": "Node dgram module adapter for libdweb",
   "keywords": [
     "node-dgram",
@@ -13,6 +13,7 @@
   "repository": "https://github.com/libdweb/node-dgram",
   "license": "MIT",
   "devDependencies": {
+    "@sammacbeth/libdweb": "0.0.8",
     "alias-quokka-plugin": "^0.1.0",
     "babel-cli": "^6.26.0",
     "babel-plugin-syntax-async-generators": "6.13.0",
@@ -25,7 +26,6 @@
     "flow-bin": "^0.75.0",
     "flow-copy-source": "^2.0.0",
     "husky": "^0.14.0",
-    "libdweb": "git+https://github.com/mozilla/libdweb.git",
     "lint-staged": "^7.0.4",
     "prettier": "^1.9.2",
     "rollup": "0.62.0",
@@ -45,7 +45,7 @@
     "build:docs": "documentation build --document-exported src/** -f html --o docs",
     "build": "npm run build:node && npm run build:types",
     "build:test": "npm run build:node && browserify --debug ./test/src/example.js > ./test/test.js",
-    "prepublishOnly": "npm run build && npm run build:umd && npm test",
+    "prepublishOnly": "npm run build",
     "precommit": "lint-staged",
     "start": "flow-copy-source --watch --verbose src lib & babel --watch --out-dir lib src",
     "demo:test": "env MOZ_DISABLE_CONTENT_SANDBOX=1 web-ext run --firefox=nightly --browser-console --url about:debugging --source-dir ./test",
