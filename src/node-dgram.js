@@ -327,7 +327,8 @@ export default (lib: Lib) => {
     async perform() {
       const { socket, address, port } = this
       try {
-        const host = await browser.DNS.resolve(address, 0, false)
+        const record = await socket.dns.resolve(address)
+        const host = record.addresses[0]
         const addressReuse = socket._reuseAddr
         const options =
           port != undefined && port !== 0
@@ -360,7 +361,7 @@ export default (lib: Lib) => {
     async perform() {
       const { socket, list, port, address, callback } = this
       const { _handle } = socket
-      const host = await browser.DNS.resolve(address, 0, false)
+      const host = (await socket.dns.resolve(address)).addresses[0]
 
       if (_handle) {
         try {
